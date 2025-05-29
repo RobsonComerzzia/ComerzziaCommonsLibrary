@@ -7,8 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.seidor.comerzzia.api.v1.model.PermissaoModel;
-import com.seidor.comerzzia.domain.model.master.Permissao;
+import com.seidor.comerzzia.commons.api.v1.model.PermissaoModel;
+import com.seidor.comerzzia.commons.domain.model.master.Permissao;
 
 @Component
 public class PermissaoModelAssembler {

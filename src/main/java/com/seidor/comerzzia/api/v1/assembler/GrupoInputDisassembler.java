@@ -4,8 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.seidor.comerzzia.api.v1.model.input.GrupoInput;
-import com.seidor.comerzzia.domain.model.master.Grupo;
+import com.seidor.comerzzia.commons.api.v1.model.input.GrupoInput;
+import com.seidor.comerzzia.commons.domain.model.master.Grupo;
 
 @Component
 public class GrupoInputDisassembler {
