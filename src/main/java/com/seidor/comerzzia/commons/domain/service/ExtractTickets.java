@@ -6,11 +6,13 @@ import java.util.List;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.seidor.comerzzia.commons.domain.model.comerzzia.Ticket;
 import com.seidor.comerzzia.commons.domain.repository.comerzzia.TicketRepository;
 
-public class ExtractTickets {
+@Component
+public abstract class ExtractTickets {
 
 	@Autowired
 	private TicketRepository ticketRepository;
