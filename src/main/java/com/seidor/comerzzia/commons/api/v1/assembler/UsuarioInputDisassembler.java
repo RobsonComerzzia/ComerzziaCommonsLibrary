@@ -1,4 +1,4 @@
-package com.seidor.comerzzia.api.v1.assembler;
+package com.seidor.comerzzia.commons.api.v1.assembler;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

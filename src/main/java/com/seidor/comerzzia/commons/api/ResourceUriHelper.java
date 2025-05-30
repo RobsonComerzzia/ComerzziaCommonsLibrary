@@ -1,4 +1,4 @@
-package com.seidor.comerzzia.api;
+package com.seidor.comerzzia.commons.api;
 
 import java.net.URI;
 

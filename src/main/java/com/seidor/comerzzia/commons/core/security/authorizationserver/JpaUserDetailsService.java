@@ -16,8 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.seidor.comerzzia.commons.domain.model.master.Usuario;
 import com.seidor.comerzzia.commons.domain.repository.master.UsuarioRepository;
 
-
-
 @Service
 public class JpaUserDetailsService implements UserDetailsService {
 

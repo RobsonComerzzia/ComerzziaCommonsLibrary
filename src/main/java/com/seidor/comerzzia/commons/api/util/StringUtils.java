@@ -1,4 +1,4 @@
-package com.seidor.comerzzia.api.util;
+package com.seidor.comerzzia.commons.api.util;
 
 public abstract class StringUtils {
 	

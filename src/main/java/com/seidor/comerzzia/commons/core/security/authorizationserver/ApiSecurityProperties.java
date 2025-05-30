@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 @Getter
 @Setter
 @Validated
-@ConfigurationProperties("connector.auth")
+@ConfigurationProperties("commons.auth")
 public class ApiSecurityProperties {
 
     @NotBlank
