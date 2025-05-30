@@ -12,16 +12,16 @@ import com.seidor.comerzzia.commons.domain.model.comerzzia.Ticket;
 import com.seidor.comerzzia.commons.domain.repository.comerzzia.TicketRepository;
 
 @Component
-public abstract class ExtractTickets {
+public abstract class BaseService {
 
 	@Autowired
-	private TicketRepository ticketRepository;
+	private static TicketRepository ticketRepository;
 	
-	public ExtractTickets(TicketRepository ticketRepository) {
-		this.ticketRepository = ticketRepository;
+	public BaseService(TicketRepository ticketRepository) {
+		BaseService.ticketRepository = ticketRepository;
 	}
 	
-	public List<Ticket> extractFull(String procesado) {
+	public static List<Ticket> extractFull(String procesado) {
 		
 		List<Ticket> tickets = ticketRepository.findByProcesado(procesado);
 		
