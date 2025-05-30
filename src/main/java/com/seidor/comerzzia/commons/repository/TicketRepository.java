@@ -1,4 +1,4 @@
-package com.seidor.comerzzia.commons.domain.repository.comerzzia;
+package com.seidor.comerzzia.commons.repository;
 
 import java.util.List;
 
@@ -10,6 +10,6 @@ import com.seidor.comerzzia.commons.domain.model.comerzzia.Ticket;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Ticket.pk_ticket> {
 	
-	List<Ticket> findByProcesado(String procesado);
+	public List<Ticket> findByProcesado(String procesado);
 
 }

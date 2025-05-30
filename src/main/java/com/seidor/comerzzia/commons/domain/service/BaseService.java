@@ -5,23 +5,17 @@ import java.util.List;
 
 import org.json.JSONObject;
 import org.json.XML;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.seidor.comerzzia.commons.domain.model.comerzzia.Ticket;
-import com.seidor.comerzzia.commons.domain.repository.comerzzia.TicketRepository;
+import com.seidor.comerzzia.commons.repository.TicketRepository;
 
-@Component
+@Service
 public abstract class BaseService {
 
-	@Autowired
-	private static TicketRepository ticketRepository;
+	protected static TicketRepository ticketRepository;
 	
-	public BaseService(TicketRepository ticketRepository) {
-		BaseService.ticketRepository = ticketRepository;
-	}
-	
-	public static List<Ticket> extractFull(String procesado) {
+	public List<Ticket> extractFull(String procesado) {
 		
 		List<Ticket> tickets = ticketRepository.findByProcesado(procesado);
 		

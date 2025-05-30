@@ -10,7 +10,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.Lob;
-import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,9 +20,8 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name="D_TICKETS_TBL")
-@MappedSuperclass
 @IdClass(Ticket.pk_ticket.class)
-public abstract class Ticket {
+public class Ticket {
 
 	@Id
 	@Column(name = "UID_ACTIVIDAD")

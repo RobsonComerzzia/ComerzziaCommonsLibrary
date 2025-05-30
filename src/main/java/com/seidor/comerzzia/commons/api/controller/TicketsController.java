@@ -17,11 +17,11 @@ public class TicketsController {
 	
 	@Autowired
 	private GenerateXmlService service;
-
+	
 	@PostMapping()
 	@ResponseStatus(HttpStatus.OK)
 	public void generate() {
-		
+	
 		service.generate(Constants.SIM);
 
 	}
