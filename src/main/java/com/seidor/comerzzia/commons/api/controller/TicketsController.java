@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.seidor.comerzzia.commons.api.controller.openapi.TicketsControllerOpenApi;
 import com.seidor.comerzzia.commons.api.v1.model.CommonsModel;
 import com.seidor.comerzzia.commons.constants.Constants;
+import com.seidor.comerzzia.commons.core.security.CheckSecurity;
 import com.seidor.comerzzia.commons.domain.service.GenerateXmlService;
-import com.seidor.comerzzia.connector.core.security.CheckSecurity;
 
 @RestController
-@RequestMapping(path = "/v1/interno/tickets", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/v1/commons/extract/ticket", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TicketsController implements TicketsControllerOpenApi<CommonsModel> {
 	
 	@Autowired

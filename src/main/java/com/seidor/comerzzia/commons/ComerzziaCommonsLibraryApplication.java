@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.seidor.comerzzia.commons.core.io.Base64ProtocolResolver;
 
+
 @SpringBootApplication
 public class ComerzziaCommonsLibraryApplication {
 

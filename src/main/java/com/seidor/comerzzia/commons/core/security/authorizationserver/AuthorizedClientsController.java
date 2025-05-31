@@ -1,6 +1,8 @@
-package com.seidor.comerzzia.connector.core.security.authorizationserver;
+package com.seidor.comerzzia.commons.core.security.authorizationserver;
 
-import lombok.RequiredArgsConstructor;
+import java.security.Principal;
+import java.util.List;
+
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
@@ -15,8 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor

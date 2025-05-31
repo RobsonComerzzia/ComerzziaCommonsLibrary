@@ -8,7 +8,7 @@ import org.json.XML;
 import org.springframework.stereotype.Service;
 
 import com.seidor.comerzzia.commons.domain.model.comerzzia.Ticket;
-import com.seidor.comerzzia.commons.repository.TicketRepository;
+import com.seidor.comerzzia.commons.domain.repository.TicketRepository;
 
 @Service
 public abstract class BaseService {

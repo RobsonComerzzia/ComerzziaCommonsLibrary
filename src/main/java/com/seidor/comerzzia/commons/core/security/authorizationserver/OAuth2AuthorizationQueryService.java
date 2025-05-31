@@ -1,9 +1,9 @@
-package com.seidor.comerzzia.connector.core.security.authorizationserver;
+package com.seidor.comerzzia.commons.core.security.authorizationserver;
+
+import java.util.List;
 
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
-
-import java.util.List;
 
 public interface OAuth2AuthorizationQueryService {
 

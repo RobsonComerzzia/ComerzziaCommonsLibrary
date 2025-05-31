@@ -10,13 +10,14 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.seidor.comerzzia.commons</groupId>
-	<artifactId>base</artifactId>
+	<groupId>com.seidor.comerzzia</groupId>
+	<artifactId>commons</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>commons-library</name>
 	<description>Commons Library</description>
 
 	<properties>
+		<application.title>Comerzzia Commons Library V1</application.title>
 		<java.version>17</java.version>
 		<modelmapper.version>3.0.0</modelmapper.version>
 		<logback-ext-loggly.version>0.1.5</logback-ext-loggly.version>
@@ -24,10 +25,15 @@
 		<springdoc.version>2.6.0</springdoc.version>
 		<springauthserver.version>1.0.0</springauthserver.version>
 		<mysql.version>8.0.23</mysql.version>
-
+		<dockerfile-maven-version>1.4.13</dockerfile-maven-version>
+		<commons-io-version>2.18.0</commons-io-version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -63,14 +69,6 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-mysql</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -113,6 +111,44 @@
 			<version>${springdoc.version}</version>
 		</dependency>
 		<dependency>
+		  <groupId>commons-io</groupId>
+		  <artifactId>commons-io</artifactId>
+		  <version>${commons-io-version}</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.springframework.retry</groupId>
+		   <artifactId>spring-retry</artifactId>
+		</dependency>
+		<dependency>
+		   <groupId>org.springframework</groupId>
+		   <artifactId>spring-aspects</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.auto.service</groupId>
+		    <artifactId>auto-service</artifactId>
+		    <version>1.0-rc5</version>
+		    <optional>true</optional>
+		</dependency>
+		<dependency>
+		    <groupId>org.reflections</groupId>
+		    <artifactId>reflections</artifactId>
+		    <version>0.10.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>net.javacrumbs.shedlock</groupId>
+		    <artifactId>shedlock-spring</artifactId>
+		    <version>6.3.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>net.javacrumbs.shedlock</groupId>
+		    <artifactId>shedlock-provider-jdbc-template</artifactId>
+		    <version>6.3.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		</dependency>
+		<dependency>
 	        <groupId>org.json</groupId>
 	        <artifactId>json</artifactId>
 	        <version>20240303</version>
@@ -125,7 +161,57 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+			</plugin>
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-surefire-plugin</artifactId>
+			  <configuration>
+			    <skipTests>true</skipTests>
+			  </configuration>
+			</plugin>
 		</plugins>
-	</build>
+		
+	    <pluginManagement>
+	      <plugins>
+	        <plugin>
+	          <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-compiler-plugin</artifactId>
+	          <version>3.11.0</version>
+	        </plugin>
+	      </plugins>
+	    </pluginManagement>
+  	</build>
+  	
+  	<profiles>
+		<profile>
+			<id>docker</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.spotify</groupId>
+						<artifactId>dockerfile-maven-plugin</artifactId>
+						<version>${dockerfile-maven-version}</version>
+						<executions>
+							<execution>
+								<id>default</id>
+								<goals>
+									<goal>build</goal>
+									<goal>push</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<repository>robsoncn/comerzzia-commons-library</repository>
+							<buildArgs>
+								<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+							</buildArgs>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

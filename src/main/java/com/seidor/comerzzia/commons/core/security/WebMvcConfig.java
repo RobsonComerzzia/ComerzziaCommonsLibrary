@@ -1,4 +1,4 @@
-package com.seidor.comerzzia.connector.core.security;
+package com.seidor.comerzzia.commons.core.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;

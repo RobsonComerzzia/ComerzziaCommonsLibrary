@@ -1,4 +1,4 @@
-package com.seidor.comerzzia.commons.repository;
+package com.seidor.comerzzia.commons.domain.repository;
 
 import java.util.List;
 
