@@ -10,14 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.seidor.comerzzia.commons.constants.Constants;
 import com.seidor.comerzzia.commons.domain.service.GenerateXmlService;
+import com.seidor.comerzzia.connector.core.security.CheckSecurity;
 
 @RestController
-@RequestMapping(path = "/interno/v1/tickets", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/v1/interno/tickets", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TicketsController {
 	
 	@Autowired
 	private GenerateXmlService service;
 	
+	@CheckSecurity.AllCliendIdPermissioes.CanReadWriteAndIsAuthenticated
 	@PostMapping()
 	@ResponseStatus(HttpStatus.OK)
 	public void generate() {
