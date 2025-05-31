@@ -21,7 +21,7 @@ import jakarta.persistence.EntityManagerFactory;
 @EnableJpaRepositories(
   entityManagerFactoryRef = "comerzziaEntityManagerFactory",
   transactionManagerRef = "comerzziaTransactionManager",
-  basePackages = { "com.seidor.comerzzia.domain.repository.comerzzia" }
+  basePackages = { "com.seidor.comerzzia.commons.domain.repository.comerzzia" }
 )
 public class ComerzziaDbConfig {
 	
@@ -36,7 +36,7 @@ public class ComerzziaDbConfig {
 			@Qualifier("comerzziaDataSource") DataSource comerzziaDataSource) {
 		return builder
 				.dataSource(comerzziaDataSource)
-				.packages("com.seidor.comerzzia.domain.model.comerzzia")
+				.packages("com.seidor.comerzzia.commons.domain.model.comerzzia")
 				.build();
 	}
 

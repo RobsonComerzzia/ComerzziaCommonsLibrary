@@ -5,21 +5,22 @@ import java.util.List;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.seidor.comerzzia.commons.abstracts.BaseService;
 import com.seidor.comerzzia.commons.domain.model.comerzzia.Ticket;
-import com.seidor.comerzzia.commons.domain.repository.TicketRepository;
+import com.seidor.comerzzia.commons.domain.repository.comerzzia.TicketsRepository;
 
 @Service
 public class GenerateXmlService extends BaseService {
-	
-	private TicketRepository ticketRepository;
+
+	public GenerateXmlService(TicketsRepository ticketsRepository) {
+		super(ticketsRepository);
+	}
 	
 	@Async
 	public void generate(String parametro) {
 		
-		BaseService.ticketRepository = ticketRepository;
 		
 		List<Ticket> tickets = this.extractFull(parametro);
-		
 		
 		
 	}

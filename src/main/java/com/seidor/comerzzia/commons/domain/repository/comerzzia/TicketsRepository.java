@@ -1,4 +1,4 @@
-package com.seidor.comerzzia.commons.domain.repository;
+package com.seidor.comerzzia.commons.domain.repository.comerzzia;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.seidor.comerzzia.commons.domain.model.comerzzia.Ticket;
 
 @Repository
-public interface TicketRepository extends JpaRepository<Ticket, Ticket.pk_ticket> {
-	
-	public List<Ticket> findByProcesado(String procesado);
+public interface TicketsRepository extends JpaRepository<Ticket, Ticket.pk_ticket> {
 
+	List<Ticket> findByProcesado(String parametro);
+	
 }
