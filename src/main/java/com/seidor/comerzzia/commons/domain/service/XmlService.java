@@ -1,0 +1,88 @@
+package com.seidor.comerzzia.commons.domain.service;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
+import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+
+
+@Service
+public class XmlService implements XmlCreator {
+
+	@Override
+	public void createXml(String xmlContent, String path, String fileName)  {
+		
+		String directoryPath = System.getProperty("user.home") + "\\XML";
+        Path filePath = Paths.get(directoryPath, fileName);
+        
+        try {
+            // Ensure the directory exists
+            Files.createDirectories(filePath.getParent());
+
+            // Write the XML content to the file
+            try (FileWriter fileWriter = new FileWriter(filePath.toFile())) {
+                fileWriter.write(xmlContent);
+                System.out.println("XML file created successfully at: " + filePath.toAbsolutePath());
+            }
+        } catch (IOException e) {
+            System.err.println("Error creating XML file: " + e.getMessage());
+            e.printStackTrace();
+        }
+		
+	}
+
+	@Override
+	public String filterTagByFile(File xmlFile, String expression) {
+		
+		DocumentBuilder dBuilder;
+		
+		 String value = null;
+		
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(xmlFile);
+			
+            XPathFactory xPathFactory = XPathFactory.newInstance();
+            XPath xpath = xPathFactory.newXPath();
+            
+            XPathExpression xPathExpression = xpath.compile(expression);
+            NodeList nodeList = (NodeList) xPathExpression.evaluate(doc, XPathConstants.NODESET);
+            
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Element element = (Element) nodeList.item(i);
+                value = element.getTextContent();
+            }
+			
+		} catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException e) {
+			e.printStackTrace();
+		}
+		
+		return value;
+	}
+
+	@Override
+	public String filterTagByString(String content, String expression) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}
