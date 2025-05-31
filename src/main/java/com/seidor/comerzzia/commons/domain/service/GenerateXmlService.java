@@ -1,5 +1,6 @@
 package com.seidor.comerzzia.commons.domain.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.scheduling.annotation.Async;
@@ -17,10 +18,16 @@ public class GenerateXmlService extends BaseService {
 	}
 	
 	@Async
-	public void generate(String parametro) {
+	public void generate(String parametro, BigInteger idTipoDocumento) {
 		
 		
-		List<Ticket> tickets = this.extractFull(parametro);
+		List<Ticket> tickets = this.extractFull(parametro, idTipoDocumento);
+		
+		tickets.forEach(ticket -> {
+			
+			String content = this.getBlobToString(ticket.getTicket());
+					
+		});
 		
 		
 	}

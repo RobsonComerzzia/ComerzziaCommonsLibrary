@@ -57,6 +57,19 @@ public class Usuario {
 		return getGrupos().add(grupo);
 	}
 	
+	@ManyToMany
+	@JoinTable(name = "usuario_empresa", joinColumns = @JoinColumn(name = "usuario_id"),
+			inverseJoinColumns = @JoinColumn(name = "empresa_id"))
+	private Set<Empresa> empresas = new HashSet<>();
+	
+	public boolean removeEmpresa(Empresa empresa) {
+		return getEmpresas().remove(empresa);
+	}
+	
+	public boolean addEmpresa(Empresa empresa) {
+		return getEmpresas().add(empresa);
+	}
+	
 	public boolean isNew() {
 		return getId() == null;
 	}

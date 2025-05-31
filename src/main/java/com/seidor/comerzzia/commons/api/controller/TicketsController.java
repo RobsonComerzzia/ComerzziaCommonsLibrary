@@ -34,7 +34,7 @@ public class TicketsController implements TicketsControllerOpenApi<CommonsModel>
 				.dateTimeRequest(LocalDateTime.now())
 				.build();
 		
-		service.generate(Constants.SIM);
+		service.generate(Constants.SIM, Constants.ID_TIPO_DOCUMENTO_XML);
 		
 		return response;
 

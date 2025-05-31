@@ -1,6 +1,7 @@
 package com.seidor.comerzzia.commons.abstracts;
 
-import java.util.Base64;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -21,22 +22,22 @@ public abstract class BaseService {
 		
 	}
 	
-	public List<Ticket> extractFull(String procesado) {
+	protected List<Ticket> extractFull(String procesado, BigInteger idTipoDocumento) {
 		
-		List<Ticket> tickets = ticketsRepository.findByProcesado(procesado);
+		return ticketsRepository.findByProcesadoAndIdTipoDocumento(procesado, idTipoDocumento);
 		
-		return tickets;
 	}
 
-	public String getBlobToString(byte[] ticketBlob) {
+	protected String getBlobToString(byte[] ticketBlob) {
 	
-		String xml = Base64.getEncoder().encodeToString(ticketBlob);
+		return new String(ticketBlob, StandardCharsets.UTF_8);
 		
-		JSONObject jsonObject = XML.toJSONObject(xml);
+	}
+	
+	protected JSONObject getBlobToJson(byte[] ticketBlob) {
 		
-		jsonObject.getJSONObject("");
+		return XML.toJSONObject(getBlobToString(ticketBlob));
 		
-		return xml;
 	}
 
 }

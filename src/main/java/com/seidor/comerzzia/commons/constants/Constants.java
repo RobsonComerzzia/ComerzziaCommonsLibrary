@@ -1,5 +1,7 @@
 package com.seidor.comerzzia.commons.constants;
 
+import java.math.BigInteger;
+
 public final class Constants {
 		
 	public static String ERROR = "ERROR";
@@ -39,5 +41,7 @@ public final class Constants {
 	public static String CNPJ = "CNPJ";
 	
 	public static String CPF = "CPF";
+	
+	public static BigInteger ID_TIPO_DOCUMENTO_XML = new BigInteger("12001");
 
 }
