@@ -57,7 +57,7 @@ public class XmlService implements XmlCreator {
 		
 		DocumentBuilder dBuilder;
 		
-		 String value = null;
+		String value = null;
 		
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

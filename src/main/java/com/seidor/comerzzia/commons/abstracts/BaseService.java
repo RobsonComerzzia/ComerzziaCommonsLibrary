@@ -2,11 +2,9 @@ package com.seidor.comerzzia.commons.abstracts;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64.Decoder;
 import java.util.List;
 
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.codehaus.stax2.ri.typed.StringBase64Decoder;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.stereotype.Service;
@@ -14,15 +12,19 @@ import org.springframework.stereotype.Service;
 import com.seidor.comerzzia.commons.api.v1.model.XmlModel;
 import com.seidor.comerzzia.commons.domain.model.comerzzia.Ticket;
 import com.seidor.comerzzia.commons.domain.repository.comerzzia.TicketsRepository;
+import com.seidor.comerzzia.commons.domain.service.XmlCreator;
 
 @Service
 public abstract class BaseService {
 
 	protected final TicketsRepository ticketsRepository;
 	
-	public BaseService(TicketsRepository ticketsRepository) {
+	protected final XmlCreator xmlCreator;
+	
+	public BaseService(TicketsRepository ticketsRepository, XmlCreator xmlCreator) {
 		
 		this.ticketsRepository = ticketsRepository;
+		this.xmlCreator = xmlCreator;
 		
 	}
 	
@@ -62,6 +64,30 @@ public abstract class BaseService {
 		
 		return model;
 		
+	}
+	
+	protected String getXmlFiscal(String contentXmlTicket) {
+		
+		String xmlFiscalEncode = xmlCreator.filterTagByString(contentXmlTicket, "//fiscal_data/property[name='XML']/value");
+		
+		if (xmlFiscalEncode != null && xmlFiscalEncode != "") {
+			return this.getEncodeToString(xmlFiscalEncode);
+		}
+		
+		return null;
+		
+	}
+
+	protected String generateFileName(String xmlFiscal) {
+		
+		String fileName = xmlCreator.filterTagByString(xmlFiscal, "//@Id");
+		
+		if (fileName != "" && fileName != null)
+			fileName = fileName + "-ProcNFCe.xml";
+		else
+			fileName = null;
+		
+		return fileName;
 	}
 
 }
