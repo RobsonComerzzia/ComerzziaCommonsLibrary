@@ -24,13 +24,16 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class XmlCreatorImpl implements XmlCreator {
 
 	@Override
 	public void createXml(String xmlContent, String path, String fileName)  {
 		
-		String directoryPath = (path != null ? path : System.getProperty("user.home")) + (fileName.contains("CFe") ? "\\XML\\Nao_enviado" : "\\XML");
+		String directoryPath = (path != null ? path : System.getProperty("user.home")) + (fileName.contains("CFe") ? "\\XML\\Nao_enviado" : ((fileName.contains("TicketId_") ? "\\XML\\Nao_enviado" : "\\XML")));
         Path filePath = Paths.get(directoryPath, fileName);
         
         try {
@@ -39,10 +42,10 @@ public class XmlCreatorImpl implements XmlCreator {
 
             try (FileWriter fileWriter = new FileWriter(filePath.toFile())) {
                 fileWriter.write(xmlContent);
-                //System.out.println("XML file created successfully at: " + filePath.toAbsolutePath());
+                //log.info("XML file created successfully at: " + filePath.toAbsolutePath());
             }
         } catch (IOException e) {
-            System.err.println("Error creating XML file: " + e.getMessage());
+            log.error("Error creating XML file: " + e.getMessage());
             e.printStackTrace();
         }
 		

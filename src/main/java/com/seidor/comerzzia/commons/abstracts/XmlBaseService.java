@@ -88,7 +88,7 @@ public abstract class XmlBaseService {
 		if (fileName != "" && fileName != null)
 			fileName = fileName + "-ProcNFCe.xml";
 		else
-			fileName = "TicketId_" + xmlCreator.filterTagByString(xmlFiscal, "//documentNumber");
+			fileName = "TicketId_" + xmlCreator.filterTagByString(xmlFiscal, "//documentNumber") + ".xml";
 		
 		return fileName;
 	}
