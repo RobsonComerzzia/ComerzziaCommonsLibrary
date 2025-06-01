@@ -25,8 +25,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-
-
 @Service
 public class XmlService implements XmlCreator {
 
@@ -37,10 +35,9 @@ public class XmlService implements XmlCreator {
         Path filePath = Paths.get(directoryPath, fileName);
         
         try {
-            // Ensure the directory exists
+        	
             Files.createDirectories(filePath.getParent());
 
-            // Write the XML content to the file
             try (FileWriter fileWriter = new FileWriter(filePath.toFile())) {
                 fileWriter.write(xmlContent);
                 System.out.println("XML file created successfully at: " + filePath.toAbsolutePath());

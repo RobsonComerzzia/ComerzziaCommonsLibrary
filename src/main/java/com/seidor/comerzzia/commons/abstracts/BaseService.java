@@ -10,6 +10,7 @@ import org.json.XML;
 import org.springframework.stereotype.Service;
 
 import com.seidor.comerzzia.commons.api.v1.model.XmlModel;
+import com.seidor.comerzzia.commons.constants.Constants;
 import com.seidor.comerzzia.commons.domain.model.comerzzia.Ticket;
 import com.seidor.comerzzia.commons.domain.repository.comerzzia.TicketsRepository;
 import com.seidor.comerzzia.commons.domain.service.XmlCreator;
@@ -68,7 +69,7 @@ public abstract class BaseService {
 	
 	protected String getXmlFiscal(String contentXmlTicket) {
 		
-		String xmlFiscalEncode = xmlCreator.filterTagByString(contentXmlTicket, "//fiscal_data/property[name='XML']/value");
+		String xmlFiscalEncode = xmlCreator.filterTagByString(contentXmlTicket, Constants.EXPRESSAO_XPATH_XML_FISCAL);
 		
 		if (xmlFiscalEncode != null && xmlFiscalEncode != "") {
 			return this.getEncodeToString(xmlFiscalEncode);
@@ -80,7 +81,7 @@ public abstract class BaseService {
 
 	protected String generateFileName(String xmlFiscal) {
 		
-		String fileName = xmlCreator.filterTagByString(xmlFiscal, "//@Id");
+		String fileName = xmlCreator.filterTagByString(xmlFiscal, Constants.EXPRESSAO_XPATH_ID_NFE);
 		
 		fileName = fileName.replace("NFe", "");
 		
