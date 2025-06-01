@@ -28,13 +28,13 @@ public class GenerateXmlService extends BaseService {
 	
 		tickets.forEach(ticket -> {
 			
-			XmlModel content = this.getContentToFile(ticket.getTicket());
+			XmlModel content = getContentToFile(ticket.getTicket());
 			
 			String xmlFiscal = getXmlFiscal(content.getContentString());
 			
 			if (xmlFiscal != null && xmlFiscal != "") {
 				String fileName = this.generateFileName(xmlFiscal);
-				xmlCreator.createXml(xmlFiscal, "${XML_PATH}", fileName);
+				createXml(xmlFiscal, "${XML_PATH}", fileName);
 			} else {
 				log.warn("[GenerateXmlService] - Não foi possível gerar o arquivo XML para o ticket {}", ticket.getIdTicket());
 			}

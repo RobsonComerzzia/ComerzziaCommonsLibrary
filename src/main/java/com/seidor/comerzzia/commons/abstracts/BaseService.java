@@ -17,9 +17,9 @@ import com.seidor.comerzzia.commons.domain.service.XmlCreator;
 @Service
 public abstract class BaseService {
 
-	protected final TicketsRepository ticketsRepository;
+	private final XmlCreator xmlCreator;
 	
-	protected final XmlCreator xmlCreator;
+	protected final TicketsRepository ticketsRepository;
 	
 	public BaseService(TicketsRepository ticketsRepository, XmlCreator xmlCreator) {
 		
@@ -82,12 +82,20 @@ public abstract class BaseService {
 		
 		String fileName = xmlCreator.filterTagByString(xmlFiscal, "//@Id");
 		
+		fileName = fileName.replace("NFe", "");
+		
 		if (fileName != "" && fileName != null)
 			fileName = fileName + "-ProcNFCe.xml";
 		else
 			fileName = null;
 		
 		return fileName;
+	}
+	
+	protected void createXml(String content, String path, String fileName) {
+		
+		xmlCreator.createXml(content, path, fileName);
+		
 	}
 
 }
