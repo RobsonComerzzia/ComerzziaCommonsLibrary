@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.seidor.comerzzia.commons.api.controller.openapi.TicketsControllerOpenApi;
 import com.seidor.comerzzia.commons.api.v1.model.CommonsModel;
 import com.seidor.comerzzia.commons.constants.Constants;
+import com.seidor.comerzzia.commons.core.security.CheckSecurity;
 import com.seidor.comerzzia.commons.domain.service.GenerateXmlService;
 
 @RestController
@@ -23,7 +24,7 @@ public class TicketsController implements TicketsControllerOpenApi<CommonsModel>
 	@Autowired
 	private GenerateXmlService service;
 	
-	//@CheckSecurity.AllCliendIdPermissioes.CanReadWriteAndIsAuthenticated
+	@CheckSecurity.AllCliendIdPermissioes.CanReadWriteAndIsAuthenticated
 	@PostMapping()
 	@Override
 	@ResponseStatus(HttpStatus.OK)

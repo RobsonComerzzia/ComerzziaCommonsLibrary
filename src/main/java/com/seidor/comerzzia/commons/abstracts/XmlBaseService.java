@@ -16,13 +16,13 @@ import com.seidor.comerzzia.commons.domain.repository.comerzzia.TicketsRepositor
 import com.seidor.comerzzia.commons.domain.service.XmlCreator;
 
 @Service
-public abstract class BaseService {
+public abstract class XmlBaseService {
 
 	private final XmlCreator xmlCreator;
 	
 	protected final TicketsRepository ticketsRepository;
 	
-	public BaseService(TicketsRepository ticketsRepository, XmlCreator xmlCreator) {
+	public XmlBaseService(TicketsRepository ticketsRepository, XmlCreator xmlCreator) {
 		
 		this.ticketsRepository = ticketsRepository;
 		this.xmlCreator = xmlCreator;
@@ -88,7 +88,7 @@ public abstract class BaseService {
 		if (fileName != "" && fileName != null)
 			fileName = fileName + "-ProcNFCe.xml";
 		else
-			fileName = null;
+			fileName = "TicketId_" + xmlCreator.filterTagByString(xmlFiscal, "//documentNumber");
 		
 		return fileName;
 	}
