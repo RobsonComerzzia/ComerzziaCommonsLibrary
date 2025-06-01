@@ -3,6 +3,7 @@ package com.seidor.comerzzia.commons.domain.service;
 import java.math.BigInteger;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class GenerateXmlService extends BaseService {
+	
+	@Value("${commons.path.xml.local}")
+	private String pathXmlLocal;
 	
 	public GenerateXmlService(TicketsRepository ticketsRepository, XmlCreator xmlCreator) {
 		super(ticketsRepository, xmlCreator);
@@ -34,7 +38,7 @@ public class GenerateXmlService extends BaseService {
 			
 			if (xmlFiscal != null && xmlFiscal != "") {
 				String fileName = this.generateFileName(xmlFiscal);
-				createXml(xmlFiscal, "${XML_PATH}", fileName);
+				createXml(xmlFiscal, pathXmlLocal, fileName);
 			} else {
 				log.warn("[GenerateXmlService] - Não foi possível gerar o arquivo XML para o ticket {}", ticket.getIdTicket());
 			}

@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 import com.seidor.comerzzia.commons.core.security.authorizationserver.JwtKeyStoreProperties;
 
-
-
 @Component
 public class ApplicationStartup implements ApplicationListener<ApplicationReadyEvent>{
 
@@ -26,9 +24,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
     @Override
 	public void onApplicationEvent(ApplicationReadyEvent event) {
 		
-		log.info("Connector Api rodando na porta : " + env.getProperty("local.server.port"));
-		
-		
+		log.info("Commons Library rodando na porta : " + env.getProperty("local.server.port"));
                
     }
  
