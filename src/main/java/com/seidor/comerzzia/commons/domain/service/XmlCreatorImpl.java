@@ -33,7 +33,7 @@ public class XmlCreatorImpl implements XmlCreator {
 	@Override
 	public void createXml(String xmlContent, String path, String fileName)  {
 		
-		String directoryPath = (path != null ? path : System.getProperty("user.home")) + (fileName.contains("CFe") ? "\\XML\\Nao_enviado" : ((fileName.contains("TicketId_") ? "\\XML\\Nao_enviado" : "\\XML")));
+		String directoryPath = (path != null ? path : System.getProperty("user.home")) + (fileName.contains("CFe") ? "\\XML\\Nao_enviado" : ((fileName.contains("uid_ticket_") ? "\\XML\\Nao_enviado" : "\\XML")));
         Path filePath = Paths.get(directoryPath, fileName);
         
         try {
