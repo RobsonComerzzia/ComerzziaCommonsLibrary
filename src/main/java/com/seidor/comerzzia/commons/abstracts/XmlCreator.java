@@ -13,7 +13,7 @@ public abstract class XmlCreator {
 
 	protected void createXml(String xmlContent, String path, String fileName)  {
 		
-		String directoryPath = (path != null ? path : System.getProperty("user.home")) + (fileName.contains("CFe") ? "\\XML\\Nao_enviado" : ((fileName.contains("uid_ticket_") ? "\\XML\\Standard" : "\\XML\\Fiscal")));
+		String directoryPath = (path != null ? path : System.getProperty("user.home")) + (fileName.contains("CFe") ? "\\XML\\Standard" : ((fileName.contains("uid_ticket_") ? "\\XML\\Ticket" : "\\XML\\Fiscal")));
         Path filePath = Paths.get(directoryPath, fileName);
         
         try {
