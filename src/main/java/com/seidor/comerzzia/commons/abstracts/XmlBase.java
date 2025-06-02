@@ -1,11 +1,28 @@
 package com.seidor.comerzzia.commons.abstracts;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.seidor.comerzzia.commons.api.v1.model.XmlModel;
 import com.seidor.comerzzia.commons.constants.Constants;
@@ -60,16 +77,16 @@ public abstract class XmlBase extends XmlCreator {
 		
 	}
 
-	protected String generateFileName(String xmlFiscal) {
+	protected String generateFileName(String content) {
 		
-		String fileName = filterTagByString(xmlFiscal, Constants.EXPRESSAO_XPATH_ID_NFE);
+		String fileName = filterTagByString(content, Constants.EXPRESSAO_XPATH_ID_NFE);
 		
 		fileName = fileName.replace("NFe", "");
 		
 		if (fileName != "" && fileName != null)
 			fileName = fileName + "-ProcNFCe.xml";
 		else
-			fileName = "uid_ticket_" + filterTagByString(xmlFiscal, "//uid_ticket") + ".xml";
+			fileName = "uid_ticket_" + filterTagByString(content, Constants.EXPRESSAO_XPATH_UID_TICKET) + ".xml";
 		
 		return fileName;
 	}
@@ -78,6 +95,51 @@ public abstract class XmlBase extends XmlCreator {
 		
 		createXml(content, path, fileName);
 		
+	}
+	
+	protected String filterTagByFile(File xmlFile, String expression) {
+		
+		DocumentBuilder dBuilder;
+		
+		String value = null;
+		
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(xmlFile);
+			
+            XPathFactory xPathFactory = XPathFactory.newInstance();
+            XPath xpath = xPathFactory.newXPath();
+            
+            XPathExpression xPathExpression = xpath.compile(expression);
+            NodeList nodeList = (NodeList) xPathExpression.evaluate(doc, XPathConstants.NODESET);
+            
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Element element = (Element) nodeList.item(i);
+                value = element.getTextContent();
+            }
+			
+		} catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException e) {
+			e.printStackTrace();
+		}
+		
+		return value;
+	}
+
+	protected String filterTagByString(String content, String expression) {
+		
+        XPathFactory xpf = XPathFactory.newInstance();
+        XPath xPath = xpf.newXPath();
+
+        InputSource inputSource = new InputSource(new StringReader(content));
+        String result = null;
+		try {
+			result = (String) xPath.evaluate(expression, inputSource, XPathConstants.STRING);
+		} catch (XPathExpressionException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 }
