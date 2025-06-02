@@ -1,4 +1,4 @@
-package com.seidor.comerzzia.commons.domain.service;
+package com.seidor.comerzzia.commons.abstracts;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,7 +17,6 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -27,11 +26,9 @@ import org.xml.sax.SAXException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Service
-public class XmlCreatorImpl implements XmlCreator {
+public abstract class XmlCreator {
 
-	@Override
-	public void createXml(String xmlContent, String path, String fileName)  {
+	protected void createXml(String xmlContent, String path, String fileName)  {
 		
 		String directoryPath = (path != null ? path : System.getProperty("user.home")) + (fileName.contains("CFe") ? "\\XML\\Nao_enviado" : ((fileName.contains("uid_ticket_") ? "\\XML\\Nao_enviado" : "\\XML")));
         Path filePath = Paths.get(directoryPath, fileName);
@@ -42,7 +39,6 @@ public class XmlCreatorImpl implements XmlCreator {
 
             try (FileWriter fileWriter = new FileWriter(filePath.toFile())) {
                 fileWriter.write(xmlContent);
-                //log.info("XML file created successfully at: " + filePath.toAbsolutePath());
             }
         } catch (IOException e) {
             log.error("Error creating XML file: " + e.getMessage());
@@ -51,8 +47,7 @@ public class XmlCreatorImpl implements XmlCreator {
 		
 	}
 
-	@Override
-	public String filterTagByFile(File xmlFile, String expression) {
+	protected String filterTagByFile(File xmlFile, String expression) {
 		
 		DocumentBuilder dBuilder;
 		
@@ -81,8 +76,7 @@ public class XmlCreatorImpl implements XmlCreator {
 		return value;
 	}
 
-	@Override
-	public String filterTagByString(String content, String expression) {
+	protected String filterTagByString(String content, String expression) {
 		
         XPathFactory xpf = XPathFactory.newInstance();
         XPath xPath = xpf.newXPath();

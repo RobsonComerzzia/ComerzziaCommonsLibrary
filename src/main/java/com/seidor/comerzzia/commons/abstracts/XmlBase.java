@@ -1,8 +1,6 @@
 package com.seidor.comerzzia.commons.abstracts;
 
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.JSONObject;
@@ -11,29 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.seidor.comerzzia.commons.api.v1.model.XmlModel;
 import com.seidor.comerzzia.commons.constants.Constants;
-import com.seidor.comerzzia.commons.domain.model.comerzzia.Ticket;
-import com.seidor.comerzzia.commons.domain.repository.comerzzia.TicketsRepository;
-import com.seidor.comerzzia.commons.domain.service.XmlCreator;
+
+import jakarta.persistence.MappedSuperclass;
 
 @Service
-public abstract class XmlBaseService {
-
-	private final XmlCreator xmlCreator;
-	
-	protected final TicketsRepository ticketsRepository;
-	
-	public XmlBaseService(TicketsRepository ticketsRepository, XmlCreator xmlCreator) {
-		
-		this.ticketsRepository = ticketsRepository;
-		this.xmlCreator = xmlCreator;
-		
-	}
-	
-	protected List<Ticket> extractTicketsFull(String procesado, BigInteger idTipoDocumento) {
-		
-		return ticketsRepository.findByProcesadoAndIdTipoDocumento(procesado, idTipoDocumento);
-		
-	}
+@MappedSuperclass
+public abstract class XmlBase extends XmlCreator {
 
 	protected String getBlobToString(byte[] ticketBlob) {
 	
@@ -69,7 +50,7 @@ public abstract class XmlBaseService {
 	
 	protected String getXmlFiscal(String contentXmlTicket) {
 		
-		String xmlFiscalEncode = xmlCreator.filterTagByString(contentXmlTicket, Constants.EXPRESSAO_XPATH_XML_FISCAL);
+		String xmlFiscalEncode = filterTagByString(contentXmlTicket, Constants.EXPRESSAO_XPATH_XML_FISCAL);
 		
 		if (xmlFiscalEncode != null && xmlFiscalEncode != "") {
 			return this.getEncodeToString(xmlFiscalEncode);
@@ -81,21 +62,21 @@ public abstract class XmlBaseService {
 
 	protected String generateFileName(String xmlFiscal) {
 		
-		String fileName = xmlCreator.filterTagByString(xmlFiscal, Constants.EXPRESSAO_XPATH_ID_NFE);
+		String fileName = filterTagByString(xmlFiscal, Constants.EXPRESSAO_XPATH_ID_NFE);
 		
 		fileName = fileName.replace("NFe", "");
 		
 		if (fileName != "" && fileName != null)
 			fileName = fileName + "-ProcNFCe.xml";
 		else
-			fileName = "uid_ticket_" + xmlCreator.filterTagByString(xmlFiscal, "//uid_ticket") + ".xml";
+			fileName = "uid_ticket_" + filterTagByString(xmlFiscal, "//uid_ticket") + ".xml";
 		
 		return fileName;
 	}
 	
-	protected void createXml(String content, String path, String fileName) {
+	protected void createXmlFile(String content, String path, String fileName) {
 		
-		xmlCreator.createXml(content, path, fileName);
+		createXml(content, path, fileName);
 		
 	}
 
