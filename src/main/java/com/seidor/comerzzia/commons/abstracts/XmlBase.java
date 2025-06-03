@@ -26,12 +26,19 @@ import org.xml.sax.SAXException;
 
 import com.seidor.comerzzia.commons.api.v1.model.XmlModel;
 import com.seidor.comerzzia.commons.constants.Constants;
+import com.seidor.comerzzia.commons.enums.TypeXml;
 
 import jakarta.persistence.MappedSuperclass;
 
 @Service
 @MappedSuperclass
 public abstract class XmlBase extends XmlCreator {
+	
+    private static final String CFE_PREFIX = "CFe";
+    private static final String NFE_PREFIX = "NFe";
+    private static final String XML_EXTENSION = ".xml";
+    private static final String PROC_NFCE_PREFIX = "ProcNFCe";
+    private static final String UID_TICKET_PREFIX = "uid_ticket_";
 
 	protected String getBlobToString(byte[] ticketBlob) {
 	
@@ -77,16 +84,30 @@ public abstract class XmlBase extends XmlCreator {
 		
 	}
 
-	protected String generateFileName(String content) {
+	protected String generateFileName(String content, String type) {
 		
-		String fileName = filterTagByString(content, Constants.EXPRESSAO_XPATH_ID_NFE);
+		String fileName = null;
 		
-		fileName = fileName.replace("NFe", "");
+		if (type.equals(TypeXml.FISCAL.toString())){
+			fileName = filterTagByString(content, Constants.EXPRESSAO_XPATH_PROPRIEDADE_ID);
+			if (fileName != null && !fileName.isBlank()){
+				fileName = fileName.replace(NFE_PREFIX, "");
+				if (!fileName.contains(CFE_PREFIX)) {
+					fileName = fileName + "-" + PROC_NFCE_PREFIX + XML_EXTENSION;
+				} else {
+					fileName = fileName.replace(CFE_PREFIX, "");
+					fileName = fileName + "-" + PROC_NFCE_PREFIX + XML_EXTENSION;;
+				}
+			}		
+		}
 		
-		if (fileName != "" && fileName != null)
-			fileName = fileName + "-ProcNFCe.xml";
-		else
-			fileName = "uid_ticket_" + filterTagByString(content, Constants.EXPRESSAO_XPATH_UID_TICKET) + ".xml";
+		if (type.equals(TypeXml.STANDARD.toString())){
+            String idProperty = filterTagByString(content, Constants.EXPRESSAO_XPATH_UID_TICKET);
+
+            if (idProperty != null && !idProperty.isBlank()) {
+                fileName = UID_TICKET_PREFIX + filterTagByString(content, Constants.EXPRESSAO_XPATH_UID_TICKET) + XML_EXTENSION;
+            }
+		}
 		
 		return fileName;
 	}

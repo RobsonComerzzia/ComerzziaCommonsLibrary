@@ -36,7 +36,7 @@ public final class Constants {
 	
 	public static String EXPRESSAO_XPATH_XML_FISCAL = "//fiscal_data/property[name='XML']/value";
 	
-	public static String EXPRESSAO_XPATH_ID_NFE = "//@Id";
+	public static String EXPRESSAO_XPATH_PROPRIEDADE_ID= "//@Id";
 	
 	public static String EXPRESSAO_XPATH_UID_TICKET = "//uid_ticket";
 
