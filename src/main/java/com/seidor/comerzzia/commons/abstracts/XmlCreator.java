@@ -12,16 +12,23 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class XmlCreator {
 	
     private static final String CFE_PREFIX = "CFe";
+    
     private static final String UID_TICKET_PREFIX = "uid_ticket_";
+    
     private static final String PATH_TICKET_PREFIX = "\\XML\\Ticket";
+    
     private static final String PATH_FISCAL_PREFIX = "\\XML\\Fiscal";
+    
     private static final String PATH_STANDARD_PREFIX = "\\XML\\Standard";
+    
     private static final String USER_HOME_PREFIX = "user.home";
 
-	protected void createXml(String xmlContent, String path, String fileName)  {
+	protected String createXml(String xmlContent, String path, String fileName)  {
+		
+		String directoryPath = null;
 		
 		if (fileName != null && !fileName.isBlank()) {
-			String directoryPath = (path != null ? path : System.getProperty(USER_HOME_PREFIX)) + (fileName.contains(CFE_PREFIX) ? PATH_STANDARD_PREFIX : ((fileName.contains(UID_TICKET_PREFIX) ? PATH_TICKET_PREFIX : PATH_FISCAL_PREFIX)));
+			directoryPath = (path != null ? path : System.getProperty(USER_HOME_PREFIX)) + (fileName.contains(CFE_PREFIX) ? PATH_STANDARD_PREFIX : ((fileName.contains(UID_TICKET_PREFIX) ? PATH_TICKET_PREFIX : PATH_FISCAL_PREFIX)));
 	        
 			Path filePath = Paths.get(directoryPath, fileName);
 	        
@@ -37,6 +44,8 @@ public abstract class XmlCreator {
 	            e.printStackTrace();
 	        }	
 		}
+		
+		return directoryPath;
 	}
 	
 }

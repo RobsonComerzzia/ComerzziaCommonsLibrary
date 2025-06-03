@@ -39,5 +39,7 @@ public final class Constants {
 	public static String EXPRESSAO_XPATH_PROPRIEDADE_ID= "//@Id";
 	
 	public static String EXPRESSAO_XPATH_UID_TICKET = "//uid_ticket";
+	
+	public static String X = "X";
 
 }
