@@ -95,8 +95,9 @@ public abstract class XmlBase extends XmlCreator {
 				if (!fileName.contains(CFE_PREFIX)) {
 					fileName = fileName + "-" + PROC_NFCE_PREFIX + XML_EXTENSION;
 				} else {
-					fileName = fileName.replace(CFE_PREFIX, "");
-					fileName = fileName + "-" + PROC_NFCE_PREFIX + XML_EXTENSION;;
+					//fileName = fileName.replace(CFE_PREFIX, "");
+					//fileName = fileName + "-" + PROC_NFCE_PREFIX + XML_EXTENSION;
+					fileName = null;
 				}
 			}		
 		}
