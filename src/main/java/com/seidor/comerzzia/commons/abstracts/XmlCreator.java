@@ -23,14 +23,14 @@ public abstract class XmlCreator {
     
     private static final String USER_HOME_PREFIX = "user.home";
 
-	protected String createXml(String xmlContent, String path, String fileName)  {
+	protected Path createXml(String xmlContent, String path, String fileName)  {
 		
-		String directoryPath = null;
+		Path filePath = null;
 		
 		if (fileName != null && !fileName.isBlank()) {
-			directoryPath = (path != null ? path : System.getProperty(USER_HOME_PREFIX)) + (fileName.contains(CFE_PREFIX) ? PATH_STANDARD_PREFIX : ((fileName.contains(UID_TICKET_PREFIX) ? PATH_TICKET_PREFIX : PATH_FISCAL_PREFIX)));
+			String directoryPath = (path != null ? path : System.getProperty(USER_HOME_PREFIX)) + (fileName.contains(CFE_PREFIX) ? PATH_STANDARD_PREFIX : ((fileName.contains(UID_TICKET_PREFIX) ? PATH_TICKET_PREFIX : PATH_FISCAL_PREFIX)));
 	        
-			Path filePath = Paths.get(directoryPath, fileName);
+			filePath = Paths.get(directoryPath, fileName);
 	        
 	        try {
 	        	
@@ -45,7 +45,7 @@ public abstract class XmlCreator {
 	        }	
 		}
 		
-		return directoryPath;
+		return filePath;
 	}
 	
 }

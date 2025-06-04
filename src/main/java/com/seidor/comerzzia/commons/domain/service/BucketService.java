@@ -33,6 +33,13 @@ public interface BucketService {
      * @param fileName O nome do arquivo.
      * @return O InputStream do arquivo.
      */
-	InputStream downloadFile(String folderName, String fileName); 
+	InputStream downloadFile(String folderName, String fileName);
+	
+    /**
+     * Remove um arquivo.
+     *
+     * @param fileName O nome do arquivo.
+     */	
+	void deleteFile(String fileName);
 	
 }
