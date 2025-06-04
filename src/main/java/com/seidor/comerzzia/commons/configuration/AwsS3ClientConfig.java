@@ -9,6 +9,14 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 public interface AwsS3ClientConfig {
 	
+	/**
+	 * Configuração do client AmazonS3 para Bucket
+	 * 
+	 * @param region Região da conta AWS. Exemplo: sa-east-1
+	 * @param accessKeyId Chave de acesso da conta AWS
+	 * @param secretAccessKey Senha de Chave de acesso da conta AWS 
+	 * @return AmazonS3
+	 */
     default AmazonS3 s3ClientAws(String region, String accessKeyId, String secretAccessKey) {
 
         AWSCredentials credentials = new BasicAWSCredentials(accessKeyId, secretAccessKey);
