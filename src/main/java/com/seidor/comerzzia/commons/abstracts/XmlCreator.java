@@ -48,4 +48,23 @@ public abstract class XmlCreator {
 		return filePath;
 	}
 	
+	protected boolean deleteFile(String fileName) {
+		
+        try {
+
+            Path filePath = Paths.get(fileName);
+
+            if (Files.exists(filePath)) {
+                Files.delete(filePath);
+                return true;
+            } else {
+                log.warn("Arquivo {} não encontrado.", fileName);
+                return false;
+            }
+        } catch (IOException e) {
+            log.error("Erro ao deletar o arquivo " + fileName + ": " + e.getMessage());
+            return false;
+        }
+    }
+	
 }

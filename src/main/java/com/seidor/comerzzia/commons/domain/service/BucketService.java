@@ -14,7 +14,7 @@ public interface BucketService {
      * @return A URL pública do arquivo.
      * @throws IOException Se houver um erro ao ler o arquivo.
      */    
-	String uploadFile(MultipartFile file) throws IOException;
+	String sendFile(MultipartFile file) throws IOException;
 	
     /**
      * Envia um arquivo para uma pasta específica no bucket.
@@ -24,7 +24,7 @@ public interface BucketService {
      * @return A URL pública do arquivo.
      * @throws IOException Se houver um erro ao ler o arquivo.
      */
-	String uploadFile(String folderName, MultipartFile file) throws IOException;
+	String sendFile(String folderName, MultipartFile file) throws IOException;
 	
     /**
      * Baixa um arquivo.

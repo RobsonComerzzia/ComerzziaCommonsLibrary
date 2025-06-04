@@ -1,10 +1,10 @@
 package com.seidor.comerzzia.commons.core.validation;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
-
 import org.springframework.util.unit.DataSize;
 import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class FileSizeValidator implements ConstraintValidator<FileSize, MultipartFile> {
 

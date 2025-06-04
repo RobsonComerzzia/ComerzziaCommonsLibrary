@@ -2,11 +2,11 @@ package com.seidor.comerzzia.commons.core.validation;
 
 import java.math.BigDecimal;
 
+import org.springframework.beans.BeanUtils;
+
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.ValidationException;
-
-import org.springframework.beans.BeanUtils;
 
 public class ValorZeroIncluiDescricaoValidator implements ConstraintValidator<ValorZeroIncluiDescricao, Object> {
 

@@ -13,6 +13,7 @@
 	<properties>
 		<application.title>Comerzzia Commons Library V1</application.title>
 		<java.version>17</java.version>
+		<spring-cloud-gcp.version>6.2.1</spring-cloud-gcp.version>
 		<modelmapper.version>3.0.0</modelmapper.version>
 		<logback-ext-loggly.version>0.1.5</logback-ext-loggly.version>
 		<dockerfile-maven-version>1.4.13</dockerfile-maven-version>
@@ -32,6 +33,13 @@
 	            <type>pom</type>
 	            <scope>import</scope>
 	        </dependency>
+	        <dependency>
+                <groupId>com.google.cloud</groupId>
+                <artifactId>spring-cloud-gcp-dependencies</artifactId>
+                <version>${spring-cloud-gcp.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 	    </dependencies>
     </dependencyManagement>
 
@@ -168,6 +176,10 @@
 	        <groupId>software.amazon.awssdk</groupId>
 	        <artifactId>s3</artifactId>
         </dependency>  
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>spring-cloud-gcp-starter-storage</artifactId>
+        </dependency>
 	</dependencies>
 
 	<build>
