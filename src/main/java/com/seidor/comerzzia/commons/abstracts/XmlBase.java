@@ -62,22 +62,6 @@ public abstract class XmlBase extends XmlCreator {
 		
 	}
 	
-	protected Class<?> xmlToObject(byte[] ticketBlob, Class<?>clazz) {
-		
-        try {
-            XmlMapper xmlMapper = new XmlMapper();
-
-            Class<?> item = xmlMapper.readValue(ticketBlob, Class.class);
-            
-            return item;
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-		return clazz;
-		
-	}
-	
 	protected XmlModel getContentToFile(byte[] ticketBlob) {
 		
 		XmlModel model = XmlModel.builder()
@@ -86,6 +70,20 @@ public abstract class XmlBase extends XmlCreator {
 				.build();
 		
 		return model;
+		
+	}
+	
+	protected <T> T xmlToObject(byte[] ticketBlob, Class<T> clazz) throws IOException {
+		
+        try {
+            XmlMapper xmlMapper = new XmlMapper();
+
+            return xmlMapper.readValue(ticketBlob, clazz);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		return null;
 		
 	}
 	
