@@ -24,6 +24,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.seidor.comerzzia.commons.api.v1.model.XmlModel;
 import com.seidor.comerzzia.commons.constants.Constants;
 import com.seidor.comerzzia.commons.enums.TypeXml;
@@ -58,6 +59,22 @@ public abstract class XmlBase extends XmlCreator {
 	protected JSONObject getBlobToJson(byte[] ticketBlob) {
 		
 		return XML.toJSONObject(getBlobToString(ticketBlob));
+		
+	}
+	
+	protected Class<?> xmlToObject(byte[] ticketBlob, Class<?>clazz) {
+		
+        try {
+            XmlMapper xmlMapper = new XmlMapper();
+
+            Class<?> item = xmlMapper.readValue(ticketBlob, Class.class);
+            
+            return item;
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		return clazz;
 		
 	}
 	
