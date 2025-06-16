@@ -3,6 +3,7 @@ package com.seidor.comerzzia.commons.enums;
 public enum TypeXml {
 	
 	FISCAL,
-	STANDARD;
+	STANDARD,
+	B1;
 
 }
