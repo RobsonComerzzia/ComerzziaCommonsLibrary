@@ -38,6 +38,10 @@ public final class Constants {
 	
 	public static String EXPRESSAO_XPATH_AUTHORIZATION_CODE = "//fiscal_data/property[name='AUTHORIZATION_CODE']/value";
 	
+	public static String EXPRESSAO_XPATH_NFE_KEY = "//fiscal_data/property[name='NFE_KEY']/value";
+	
+	public static String EXPRESSAO_XPATH_SITEF = "//adicionales/SITEF_DATA/text()";
+	
 	public static String EXPRESSAO_XPATH_PROPRIEDADE_ID= "//@Id";
 	
 	public static String EXPRESSAO_XPATH_UID_TICKET = "//uid_ticket";
