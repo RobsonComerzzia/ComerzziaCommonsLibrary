@@ -95,5 +95,17 @@ public abstract class Utils {
         // Cria o MockMultipartFile
         return new MockMultipartFile(paramName, originalFilename, contentType, content);
     }
+    
+    public static BigDecimal getBigDecimalValue(String value) {
+    	
+    	try {
+    		
+    		return new BigDecimal(value);
+    		
+    	} catch(Exception e) {
+    		return null;
+    	}
+    	
+    }
 
 }
