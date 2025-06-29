@@ -6,6 +6,14 @@ public final class Constants {
 	
 	public static final String UTF8 = "UTF-8";
 	
+	public static final String PROCESSED = "PROCESSED";
+	
+	public static final String PENDING = "PENDING";
+	
+	public static final String NO_DATA = "NO_DATA";
+	
+	public static final String ERROR = "ERROR";
+	
 	public static final String API_KEY = "x-api-key";
 	
 	public static final String TOKEN = "token";

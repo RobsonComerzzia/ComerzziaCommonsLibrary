@@ -1,12 +1,15 @@
 package com.seidor.comerzzia.commons.abstracts;
 
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClient;
 
 import com.seidor.comerzzia.commons.constants.Constants;
+import com.seidor.comerzzia.commons.domain.exception.FileNameNotFoundException;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.extern.slf4j.Slf4j;
@@ -16,53 +19,48 @@ import lombok.extern.slf4j.Slf4j;
 @MappedSuperclass
 public abstract class RestClientB1<T, R> {
 
-	protected ResponseEntity<R> post(T body, String url, String apiKey, String token) throws Exception {
-		
-		ResponseEntity<R> response = null;
+	protected ResponseEntity<R> post(T body, String url, String apiKey, String token, Class<R> responseType) throws FileNameNotFoundException {
 		
 		RestClient restClient = RestClient.builder()
 				.baseUrl(url)
 				.build();
 		
 		try {
-			response = restClient.post()
-					.uri(uriBuilder -> uriBuilder
-							.build())
-						.body(body != null ? body : null)
+			return restClient.post()
+					.uri(uriBuilder -> uriBuilder.build())
+						.body(body)
+						.contentType(MediaType.APPLICATION_JSON)
 						.header(Constants.API_KEY, apiKey)
 						.header(Constants.TOKEN, token)
 						.retrieve()
-			        .onStatus(httpStatusCode -> httpStatusCode.is2xxSuccessful(), (req, res) -> {
-			        	 String json = new String(res.getBody().readAllBytes());
-			        	 log.info("{} - Sucesso {} : {}", res.getStatusCode(), json);
-			         })
 					.onStatus(httpStatusCode -> httpStatusCode.is4xxClientError(), (req, res) -> {
 						 String json = new String(res.getBody().readAllBytes());
-						 log.error("{} - Erro {} : {}", res.getStatusCode(), json);
+						 log.error("{} - Erro: {}", res.getStatusCode(), json);
 					})
 					.onStatus(httpStatusCode -> httpStatusCode.is5xxServerError(), (req, res) -> {
 					     String json = new String(res.getBody().readAllBytes());
-					     log.error("{} - ERRO {}: {}", res.getStatusCode(), json);
+					     log.error("{} - ERRO: {}", res.getStatusCode(), json);
 					})	
-					.toEntity(new ParameterizedTypeReference<R>() {});			
-		} catch (Exception e) {
-			log.error("Erro: ", e.getLocalizedMessage());
-		}
-		
-		return response;
+					.toEntity(responseType);
+			
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+            log.error("HTTP Erro {}: {}", e.getStatusCode(), e.getResponseBodyAsString());
+            throw e;
+        } catch (Exception e) {
+            log.error("Erro inesperado ao realizar POST: {}", e.getLocalizedMessage(), e);
+            throw new RuntimeException("Erro ao processar requisição API", e); // Envolva em uma exceção de runtime
+        }
 		
 	}
 	
-	protected ResponseEntity<R> get(HttpHeaders headers, String url, String apiKey, String token) throws Exception {
-		
-		ResponseEntity<R> response = null;
+	protected ResponseEntity<R> get(HttpHeaders headers, String url, String apiKey, String token,  Class<R> responseType) throws FileNameNotFoundException {
 		
 		RestClient restClient = RestClient.builder()
 				.baseUrl(url)
 				.build();
 		
 		try {
-			response = restClient.get()
+			return restClient.get()
 					.uri(uriBuilder -> uriBuilder
 						.build())
 						.headers(httpHeaders -> {
@@ -71,10 +69,6 @@ public abstract class RestClientB1<T, R> {
 		                    httpHeaders.addAll(headers);
 		                })
 						.retrieve()
-			        .onStatus(httpStatusCode -> httpStatusCode.is2xxSuccessful(), (req, res) -> {
-			        	 String json = new String(res.getBody().readAllBytes());
-			        	 log.info("{} - Sucesso {} : {}", res.getStatusCode(), json);
-			         })
 					.onStatus(httpStatusCode -> httpStatusCode.is4xxClientError(), (req, res) -> {
 						 String json = new String(res.getBody().readAllBytes());
 						 log.error("{} - Erro {} : {}", res.getStatusCode(), json);
@@ -83,12 +77,14 @@ public abstract class RestClientB1<T, R> {
 					     String json = new String(res.getBody().readAllBytes());
 					     log.error("{} - ERRO {}: {}", res.getStatusCode(), json);
 					})	
-					.toEntity(new ParameterizedTypeReference<R>() {});			
-		} catch (Exception e) {
-			log.error("Erro: ", e.getLocalizedMessage());
-		}
-		
-		return response;
+					.toEntity(responseType);			
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+            log.error("HTTP Erro {}: {}", e.getStatusCode(), e.getResponseBodyAsString());
+            throw e;
+        } catch (Exception e) {
+            log.error("Erro inesperado ao realizar POST: {}", e.getLocalizedMessage(), e);
+            throw new RuntimeException("Erro ao processar requisição API", e); // Envolva em uma exceção de runtime
+        }
 		
 	}
 	
