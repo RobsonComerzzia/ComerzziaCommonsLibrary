@@ -53,6 +53,12 @@ public abstract class RestClientB1<T, R> {
 		
 	}
 	
+	protected ResponseEntity<R> get(String url, String apiKey, String token,  Class<R> responseType) throws FileNameNotFoundException {
+		
+		return get(null, url, apiKey, token, responseType);
+	
+	}
+	
 	protected ResponseEntity<R> get(HttpHeaders headers, String url, String apiKey, String token,  Class<R> responseType) throws FileNameNotFoundException {
 		
 		RestClient restClient = RestClient.builder()
