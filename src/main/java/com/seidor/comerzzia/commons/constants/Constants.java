@@ -1,7 +1,5 @@
 package com.seidor.comerzzia.commons.constants;
 
-import java.math.BigInteger;
-
 public final class Constants {
 	
 	public static final String UTF8 = "UTF-8";
@@ -40,11 +38,11 @@ public final class Constants {
 	
 	public static final String CPF = "CPF";
 	
-	public static final BigInteger ID_TIPO_DOCUMENTO_XML = new BigInteger("12001");
-	
 	public static final String EXPRESSAO_XPATH_XML_FISCAL = "//fiscal_data/property[name='XML']/value";
 	
 	public static final String EXPRESSAO_XPATH_AUTHORIZATION_CODE = "//fiscal_data/property[name='AUTHORIZATION_CODE']/value";
+	
+	public static final String EXPRESSAO_XPATH_AUTHORIZATION_PROTOCOL = "//fiscal_data/property[name='AUTHORIZATION_PROTOCOL']/value";
 	
 	public static final String EXPRESSAO_XPATH_NFE_KEY = "//fiscal_data/property[name='NFE_KEY']/value";
 	
@@ -53,6 +51,8 @@ public final class Constants {
 	public static final String EXPRESSAO_XPATH_PROPRIEDADE_ID= "//@Id";
 	
 	public static final String EXPRESSAO_XPATH_UID_TICKET = "//uid_ticket";
+	
+	public static final String EXPRESSAO_XPATH_MOV_CONCEPT_CODE = "//document/movConceptCode/text()";
 	
 	public static final String X = "X";
 
