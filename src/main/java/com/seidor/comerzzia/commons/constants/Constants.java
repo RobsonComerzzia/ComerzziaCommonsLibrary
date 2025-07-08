@@ -60,7 +60,13 @@ public final class Constants {
 	
 	public static final String EXPRESSAO_XPATH_MOV_CONCEPT_CODE = "//document/movConceptCode/text()";
 	
+	public static final String EXPRESSAO_XPATH_WH_CODE = "//document/whCode/text()";
+	
+	public static final String EXPRESSAO_XPATH_OUT_PUT = "//document/output/text()";
+	
 	public static final String EXPRESSAO_XPATH_BALANCE = "//summaryByPaymentCode/entry/value/balance/text()";
+	
+	public static final String EXPRESSAO_XPATH_INITIAL_BALANCE = "//document/initialBalance/text()";
 	
 	public static final String X = "X";
 
