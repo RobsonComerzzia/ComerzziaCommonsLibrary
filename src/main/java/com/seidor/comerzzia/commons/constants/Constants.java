@@ -4,6 +4,8 @@ public final class Constants {
 	
 	public static final String UTF8 = "UTF-8";
 	
+	public static final String SUCCESS = "SUCCESS";
+	
 	public static final String PROCESSED = "PROCESSED";
 	
 	public static final String PENDING = "PENDING";
@@ -44,7 +46,11 @@ public final class Constants {
 	
 	public static final String EXPRESSAO_XPATH_AUTHORIZATION_PROTOCOL = "//fiscal_data/property[name='AUTHORIZATION_PROTOCOL']/value";
 	
+	public static final String EXPRESSAO_XPATH_SERIE = "//fiscal_data/property[name='SERIE']/value";
+	
 	public static final String EXPRESSAO_XPATH_NFE_KEY = "//fiscal_data/property[name='NFE_KEY']/value";
+	
+	public static final String EXPRESSAO_XPATH_POS_CODE = "//fiscal_data/property[name='POS_CODE']/value";
 	
 	public static final String EXPRESSAO_XPATH_SITEF = "//adicionales/SITEF_DATA/text()";
 	
@@ -53,6 +59,8 @@ public final class Constants {
 	public static final String EXPRESSAO_XPATH_UID_TICKET = "//uid_ticket";
 	
 	public static final String EXPRESSAO_XPATH_MOV_CONCEPT_CODE = "//document/movConceptCode/text()";
+	
+	public static final String EXPRESSAO_XPATH_BALANCE = "//summaryByPaymentCode/entry/value/balance/text()";
 	
 	public static final String X = "X";
 
