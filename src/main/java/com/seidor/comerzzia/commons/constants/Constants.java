@@ -64,7 +64,11 @@ public final class Constants {
 	
 	public static final String EXPRESSAO_XPATH_OUT_PUT = "//document/output/text()";
 	
-	public static final String EXPRESSAO_XPATH_BALANCE = "//summaryByPaymentCode/entry/value/balance/text()";
+	public static final String EXPRESSAO_XPATH_TOTAL_VENTAS_ENTRADA = "//totales/totalVentasEntrada/text()";
+	
+	public static final String EXPRESSAO_XPATH_TOTAL_APUNTES_ENTRADA = "//totales/totalApuntesEntrada/text()";
+	
+	public static final String EXPRESSAO_XPATH_TOTAL = "//totales/total/text()";
 	
 	public static final String EXPRESSAO_XPATH_INITIAL_BALANCE = "//document/initialBalance/text()";
 	
