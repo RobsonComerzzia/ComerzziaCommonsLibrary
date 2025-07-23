@@ -72,6 +72,8 @@ public final class Constants {
 	
 	public static final String EXPRESSAO_XPATH_INITIAL_BALANCE = "//document/initialBalance/text()";
 	
+	public static final String EXPRESSAO_XPATH_TARJETA_FIDELIZADO = "//datos_fidelizacion/numero_tarjeta/text()";
+	
 	public static final String X = "X";
 
 }
