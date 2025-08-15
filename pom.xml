@@ -13,6 +13,9 @@
 	<properties>
 		<application.title>Comerzzia Commons Library V1</application.title>
 		<java.version>17</java.version>
+		<maven.compiler.source>17</maven.compiler.source>
+    	<maven.compiler.target>17</maven.compiler.target>
+    	<maven.compiler.release>17</maven.compiler.release>
 		<spring-cloud-gcp.version>6.2.1</spring-cloud-gcp.version>
 		<modelmapper.version>3.0.0</modelmapper.version>
 		<logback-ext-loggly.version>0.1.5</logback-ext-loggly.version>
@@ -165,6 +168,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+        			<source>17</source>
+        			<target>17</target>
+    			</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
