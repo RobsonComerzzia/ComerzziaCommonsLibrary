@@ -77,4 +77,6 @@ public final class Constants {
 	public static final String X = "X";
 
 	public static final String P = "P";
+	
+	public static final String E = "E";
 }
