@@ -8,6 +8,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClient;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seidor.comerzzia.commons.constants.Constants;
 import com.seidor.comerzzia.commons.domain.exception.FileNameNotFoundException;
 
@@ -19,11 +21,23 @@ import lombok.extern.slf4j.Slf4j;
 @MappedSuperclass
 public abstract class RestClientB1<T, R> {
 
+	private final ObjectMapper mapper = new ObjectMapper();
+	
 	protected ResponseEntity<R> post(T body, String url, String apiKey, String token, Class<R> responseType) throws FileNameNotFoundException {
+		
 		
 		RestClient restClient = RestClient.builder()
 				.baseUrl(url)
 				.build();
+	
+		String bodyJson = "";
+		try {
+			bodyJson = mapper.writeValueAsString(body);
+		} catch (JsonProcessingException e) {
+			log.error("Erro no mapper do body");
+		}
+		
+		log.info("url = {},(POST), BODY -> {}, Token -> {}", url, bodyJson, token);
 		
 		try {
 			return restClient.post()
@@ -35,11 +49,11 @@ public abstract class RestClientB1<T, R> {
 						.retrieve()
 					.onStatus(httpStatusCode -> httpStatusCode.is4xxClientError(), (req, res) -> {
 						 String json = new String(res.getBody().readAllBytes());
-						 log.error("{} - Erro: {}", res.getStatusCode(), json);
+						 log.error("{}, url = {} - Erro: {}", res.getStatusCode(), url, json);
 					})
 					.onStatus(httpStatusCode -> httpStatusCode.is5xxServerError(), (req, res) -> {
 					     String json = new String(res.getBody().readAllBytes());
-					     log.error("{} - ERRO: {}", res.getStatusCode(), json);
+					     log.error("{}, url = {} - ERRO: {}", res.getStatusCode(), url, json);
 					})	
 					.toEntity(responseType);
 			
