@@ -74,9 +74,16 @@ public final class Constants {
 	
 	public static final String EXPRESSAO_XPATH_TARJETA_FIDELIZADO = "//datos_fidelizacion/numero_tarjeta/text()";
 	
+	
+	
+	public static final String EXPRESSAO_XPATH_TIENDA_CODIGO = "//tienda/codigo/text()";
+	
+	public static final String EXPRESSAO_XPATH_CLIENTE_CODCLI = "//cliente/codcli/text()";
+	
+	
 	public static final String X = "X";
 
 	public static final String P = "P";
 	
-	public static final String E = "E";
+	public static final String T = "T";
 }
